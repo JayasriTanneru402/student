@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    <script>
+       function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function edit(ele){
+           var id=ele.value;
+$.ajax({
+    type: "PUT",
+    url: "/?id="+id,
+    success: function(msg){
+        $('.main').html(msg);
+    }
+});
+       }
+function del(ele){
+           var id=ele.value;
+$.ajax({
+    type: "DELETE",
+    url: "/?id="+id,
+    success: function(msg){
+        $('.main').html(msg);
+    }
+});
+       }
+
+    </script>
+</head>
+<body>
+<div id="myDIV" style="display: none">
+<form method="post" action="/" enctype="multipart/form-data">
+    {{ form.as_p }}
+<input type="submit" value="Submit">
+
+</form>
+</div>
+<button id="showdiv" onclick="myFunction()"> Add New Student</button>
+{% if data %}
+<div style="margin-top: 5px" class="main">
+<label> Students Information</label>
+<table border="1">
+    <thead>
+    <th>Name</th>
+    <th>Qualification</th>
+    <th>Photo</th>
+    </thead>
+<tbody>
+    {% for i in data %}
+        <tr>
+        <td> {{ i.name }}</td>
+        <td>{{ i.qualification }}</td>
+
+        <td><img src="{{ i.photo }}" width="50px"></td>
+        <td>
+            Edit</td>
+            <td>
+                  <button onclick="del(this)" value="{{i.id}}">Delete</button>
+
+
+               </td>
+        </tr>
+    {% endfor %}
+
+
+</tbody>
+
+</table>
+</div>
+{% endif %}
+</body>
+</html>
