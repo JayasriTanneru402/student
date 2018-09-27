@@ -1,1 +1,1 @@
-pip install django
+pip install django==1.8
