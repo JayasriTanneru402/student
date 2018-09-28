@@ -30,15 +30,20 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
+PROJECT_APPS = ['studentapp',]
+
+PREREQ_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'studentapp',
+    'django_jenkins',
 ]
+
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
