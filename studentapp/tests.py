@@ -1,5 +1,4 @@
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client
 from django.urls import reverse
 from studentapp.models import Student
 
@@ -15,3 +14,9 @@ class TestStudent(TestCase):
         self.assertTemplateUsed(res, 'home.html')
         self.assertContains(res, 'Student-1')
         self.assertContains(res, 'B.Tech')
+        
+    def test_post_success(self):
+        data = {"name": "Jayasri", "qualification": "B.Tech", "photo": "/home/itrois054/Pictures/forest-wallpaper-hd-12.jpg"}
+        res = self.c.post(reverse('home'), data)
+        self.assertEqual(res.status_code, 200)
+
