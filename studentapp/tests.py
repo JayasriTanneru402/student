@@ -14,9 +14,21 @@ class TestStudent(TestCase):
         self.assertTemplateUsed(res, 'home.html')
         self.assertContains(res, 'Student-1')
         self.assertContains(res, 'B.Tech')
-        
+
     def test_post_success(self):
         data = {"name": "Jayasri", "qualification": "B.Tech", "photo": "/home/itrois054/Pictures/forest-wallpaper-hd-12.jpg"}
         res = self.c.post(reverse('home'), data)
         self.assertEqual(res.status_code, 200)
+
+
+    def test_delete_success(self):
+        Student.objects.create(name='test', qualification='B.Tech', photo="/home/itrois054/Pictures/forest-wallpaper-hd-12.jpg")
+        s = Student.objects.get(name='test')
+        res = self.c.delete('/?id={}'.format(s.id))
+        self.assertEqual(res.status_code, 200)
+
+
+
+
+
 
